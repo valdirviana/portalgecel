@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+        <title>Portal Gecel</title>
+		
+		<link rel="stylesheet" href="css/portalgecel.css" />
+		<link rel="stylesheet" href="css/bootstrap.css" />
+        <link href="css/datepicker3.css" rel="stylesheet" />    
+
+    </head>
+<body>
+     
+  <div class="page page1" style="overflow:auto">
+         <div class="container">
+
+           <h2 class="form-signin-heading">Relatório Semanal</h2>
+                
+             
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">Membros</label>
+                        <div class="controls">
+                            <input id="_txtMembro" type="number" class="form-control" onchange="SomaTotal()" required=""  />
+                        </div>
+                    </div>
+                </div>
+            </div>  
+             <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">Visitas</label>
+                        <div class="controls">
+                            <input id="_txtVisita" type="number" class="form-control" onchange="SomaTotal()"   required="" />
+                        </div>
+                    </div>
+                </div>
+            </div>                   
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">Crianças</label>
+                        <div class="controls">
+                            <input id="_txtCrianca" type="number" class="form-control" onchange="SomaTotal()"   required="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">Total</label>
+                        <div class="controls">
+                            <input id="_txtTotal" type="number" class="form-control"  readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">MDA</label>
+                        <div class="controls">
+                            <input id="_txtMDA" type="number" class="form-control"  required="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">G.E.</label>
+                        <div class="controls">
+                            <input id="_txtGE" type="number" class="form-control"  required="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">Batismo</label>
+                        <div class="controls">
+                            <input id="_txtBatismo" type="number" class="form-control"  required="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">Kg Amor</label>
+                        <div class="controls">
+                            <input id="_txtKgAmor" type="number" class="form-control"  required="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">Data Célula</label>
+                        <div class="controls">
+                            <input id="_txtDtCelula" type="text" onfocus="BuscaDataCelula()" class="form-control" aria-readonly="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">Data Multiplicação</label>
+                        <div class="controls">
+                            <input id="_txtDtMultiplicacao" type="text" onfocus="BuscaDataMultiplicacao()" class="form-control"  aria-readonly="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput">Observação</label>
+                        <div class="controls">
+                            <input id="_txtObservacao" type="text" class="form-control"   />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput"></label>
+                        <div class="controls">
+                            <button id="btn1" class="btn btn-primary" onclick="EnviarRelatorio()">Enviar Relatório </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="control-group">
+                        <label class="control-label" for="textinput"></label>
+                        <div class="controls">
+                            <button id="Button1" class="btn btn-primary" onclick="Sair()">
+                Sair
+
+	        </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>         
+                  <br />           
+
+
+       
+        </div>
+     </div>
+ 
+     <div class="page page2">
+		 <div class="container">
+		  <div class="form-signin">
+			<h2 class="form-signin-heading">Portal Gecel</h2>
+			<input id="_txtLogin" type="text" class="form-control" placeholder="Login" required="" />
+			  <br />
+			<input id="_txtSenha" type="password" class="form-control" placeholder="Senha" required="" />
+			  <br />
+			<button  id="btn2" class="btn btn-lg btn-primary btn-block" type="submit" onclick="Logar()">Entrar</button>
+			  <!-- <img src="img/logogecel.png" height="200" width="200" />-->
+		  </div>
+		</div>
+     </div>
+   
+                    <!-- Modal Células-->
+                <div class="modal fade" id="_modalCelulas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Escolha a Célula</h4>
+                      </div>
+                      <div class="modal-body">
+        
+                                       <div id="_divEscolhaCelula">
+
+
+	                                    </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                        <!-- Modal Sucesso Cadastro-->
+                <div class="modal fade" id="_modalSucessoCadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="H1">Relatório Semanal</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3>Relatório enviado com sucesso!</h3>
+                      </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="FecharSucessoEnvio()">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+             <!-- Modal Aviso Campo-->
+                <div class="modal fade" id="_modalAvisoCampo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="H2">Relatório Semanal</h4>
+                      </div>
+                      <div class="modal-body">
+                          <h3 id="_lblAViso"></h3>
+                      </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="FechaAvisoVazio()">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+ 
+                 <!-- Modal Aviso Login-->
+                <div class="modal fade" id="_modalAvisoLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="H3">Relatório Semanal</h4>
+                      </div>
+                      <div class="modal-body">
+                         <h3 id="_lblAvisoLogin"></h3>
+                      </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="FechaAvisoLogin()">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                     <!-- Modal Data Célula-->
+                <div class="modal fade" id="_modalDataCelula" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="H4">Data Célula</h4>
+                      </div>
+                      <div class="modal-body">
+                         <div id="_divDataCelula">
+                             <div></div> 
+                         </div>
+                      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info btn-block" onclick="EscolhaDataCelula()" >Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+          <!-- Modal Data Multiplicação-->
+                <div class="modal fade" id="_modalDataMultiplicacao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="H5">Data Multiplicação</h4>
+                      </div>
+                      <div class="modal-body">
+                         <div id="_divDataMultiplicacao">
+                             <div></div> 
+                         </div>
+                      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info btn-block" onclick="EscolhaDataMultiplicacao()" >Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+		<script src="js/jquery-2.1.0.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+		<script src="js/portalgecel.js"></script>
+        <script src="js/bootstrap-datepicker.js"></script>
+ 
+
+        <script type="text/javascript">
+            
+
+           $.fn.datepicker.dates['pt-BR'] = {
+               days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
+               daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+               daysMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa", "Do"],
+               months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+               monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+               today: "Hoje",
+               clear: "Limpar"
+           };
+
+
+            $('#_divDataCelula div').datepicker({
+                todayBtn: true,
+                language: "pt-BR",
+                daysOfWeekDisabled: "0,1,2,5",
+                todayHighlight: true
+
+            }).on('changeDate', function (e) {
+
+                //alert(e.format('dd/mm/yyyy'));
+                $('#_txtDtCelula').val(e.format('dd/mm/yyyy'))
+            });
+
+            $('#_divDataMultiplicacao div').datepicker({
+                todayBtn: true,
+                language: "pt-BR",
+                todayHighlight: true
+
+            }).on('changeDate', function (e) {
+
+                $('#_txtDtMultiplicacao').val(e.format('dd/mm/yyyy'))
+            });
+
+      </script>
+</body>
+
+
+</html>
