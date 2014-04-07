@@ -17,12 +17,12 @@ body {
             .page1 {
 
                 background-color: whitesmoke;
-                background-image:url('../img/img7.jpg');
+                background-image:url('http://portalgecel.com.br/Content/Image/App/img7.jpg');
             }
             .page2 {
 
                 background-color: whitesmoke;
-                background-image:url('../img/img7.jpg');
+                background-image:url('http://portalgecel.com.br/Content/Image/App/img7.jpg');
             }
 
             input[type="text"], input[type="number"], input[type="password"] {
