@@ -82,7 +82,7 @@ function Sair() {
                             '   <div class="span12">' +
                             '       <div class="control-group">' +
                             '          <div class="controls">' +
-                            '              <button onclick="EscolheCelula()" class="btn btn-large btn-block _btnEscolhaCelula" value="' + id_celula + '"><strong>' + nomeCelula + '</strong></button>' +
+                            '              <button class="btn btn-large btn-block _btnEscolhaCelula" value="' + id_celula + '"><strong>' + nomeCelula + '</strong></button>' +
                             '           </div>' +
                             '       </div>' +
                             '  </div>' +
@@ -101,8 +101,11 @@ function Sair() {
                     })
 
                     $('#_modalCelulas').modal('show');
+
+                    EscolheCelula();
                 },
                 complete: function (data) {
+
 
 
                 },
@@ -116,7 +119,15 @@ function Sair() {
 
         function EscolheCelula() {
 
-            $('#_modalCelulas').modal('hide');
+            $("._btnEscolhaCelula").click(function () {
+
+                $('#_modalCelulas').modal('hide');
+
+                var id_celula = $(this).val();
+
+                $('#_txtIdCelula').text(id_celula);
+
+            });
 
         }
 
@@ -137,7 +148,6 @@ function Sair() {
 
             if (VerificaVazios())
             {
-
                 $('#_modalSucessoCadastro').modal({
                     keyboard: false,
                     backdrop: 'static'
@@ -302,6 +312,7 @@ function Sair() {
         function EscolhaDataCelula()
         {
             $('#_modalDataCelula').modal('hide');
+
         }
 
         function BuscaDataMultiplicacao()
