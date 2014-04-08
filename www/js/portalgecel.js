@@ -16,110 +16,101 @@ function Sair() {
 			    return false;
 			}
 
-			txtxml = '<?xml version="1.0" encoding="utf-8"?> '+ 
-                ' <Table1> '+
-        ' <id_pessoa>164</id_pessoa> '+
-        ' <nome>Valdir Lopes Viana</nome> '+
-        ' <apelido>Valdir VIana</apelido> '+
-        ' <classificacao>12</classificacao> '+
-        ' <telefone_01>0000-0000</telefone_01> '+
-        ' <usuario>1</usuario> '+
-        ' <login>valdir</login> '+
-       ' <senha>123valdir</senha> '+
-      '</Table1>';
+			$.ajax({
+			    type: "POST",
+			    url: "http://service.portalgecel.com.br/Services/UsuarioService.asmx/BuscaLoginUsuario",
+			    data: "login=" + login + "&senha=" + senha,
+			    dataType: "xml",
+			    success: function (data) {
 
-            var data = $.parseXML (txtxml)
+			        var dt = $(data).find('Table1');
+
+			        var id_pessoa = dt.find('id_pessoa').text();
+			        var nome = dt.find('nome').text();
+			        var login = dt.find('login').text();
+			        var senha = dt.find('senha').text();
+			        var classificacao = dt.find('classificacao').text();
+
+			        if (nome == "")
+			        {
+			            alert('Erro! Usuário ou Senha Inválido!');
+			        }
+			        else
+			        {
+
+			            var page2Div = $('.page2').css('display', 'none');
+			            var page1Div = $('.page1').css('display', 'normal');
+
+			            $('#_txtIdUsuario').text(id_pessoa);
+
+			            MostraCelulaUsuario();
+			        }
+			    },
+			    complete: function (data) {
 
 
-           
+			    },
+			    error: function (data) {
 
-
-
-
-
-    //$.ajax({
-    //    type: 'POST',
-    //    url: 'http://www.portalgecel.com.br/Services/UsuarioService.asmx/BuscaLoginUsuario',
-    //    data: "login=" + login + "&senha=" + senha,
-    //    dataType: 'xml',
-    //    success: function (data) {
-
-            var dt = $(data).find('Table1');
-            
-            var id_pessoa = dt.find('id_pessoa').text();
-            var nome = dt.find('nome').text();
-            var login = dt.find('login').text();
-            var senha = dt.find('senha').text();
-            var classificacao = dt.find('classificacao').text();
-
-            if (nome == "")
-            {
-                alert('Erro! Usuário ou Senha Inválido!');
-            }
-            else
-            {
-                
-                var page2Div = $('.page2').css('display', 'none');
-                var page1Div = $('.page1').css('display', 'normal');
-
-                MostraCelulaUsuario();
-
-                //alert(login);
-            }      
-        //},
-        //complete: function (data) {
-
-        //    //document.getElementById('_txtSenha').value = "";
-
-        //},
-        //error: function (data) {
-
-        //    alert("Erro! Ocorreu algum problema, se o problema persistir acesse, www.portalgecel.com.br");
-        //}
-        //});
+			        alert("error");
+			    }
+			});
 
         }
 
 
         function MostraCelulaUsuario() {
 
-            var celulaUsuario = $.parseXML('<?xml version="1.0" encoding="utf-8"?><Table1> <id_celula>148</id_celula><nome>Luz na Escuridão</nome> </Table1>');
+            var idusuario = $('#_txtIdUsuario').text();
 
-            var html = "";
+            $.ajax({
+                type: "POST",
+                url: "http://service.portalgecel.com.br/Services/RelatorioSemanaService.asmx/BuscaCelulaDoUsuario",
+                data: "idUsuario=" + idusuario,
+                dataType: "xml",
+                success: function (data) {
 
-            $(celulaUsuario).find('Table1').each(function () {
+                    var html = "";
 
-                var id_celula = $(this).find('id_celula').text();
-                var nomeCelula = $(this).find('nome').text();
+                    $(data).find('Table1').each(function () {
 
-                html = html + '' +
-                    '<div class="row-fluid">' +
-                    '   <div class="span12">' +
-                    '       <div class="control-group">' +
-                    '          <div class="controls">' +
-                    '              <button onclick="EscolheCelula()" class="btn btn-large btn-block _btnEscolhaCelula" value="' + id_celula + '"><strong>' + nomeCelula + '</strong></button>' +
-                    '           </div>' +
-                    '       </div>' +
-                    '  </div>' +
-                    '</div>';
+                        var id_celula = $(this).find('id_celula').text();
+                        var nomeCelula = $(this).find('nome').text();
+
+                        html = html + '' +
+                            '<div class="row-fluid">' +
+                            '   <div class="span12">' +
+                            '       <div class="control-group">' +
+                            '          <div class="controls">' +
+                            '              <button onclick="EscolheCelula()" class="btn btn-large btn-block _btnEscolhaCelula" value="' + id_celula + '"><strong>' + nomeCelula + '</strong></button>' +
+                            '           </div>' +
+                            '       </div>' +
+                            '  </div>' +
+                            '</div>' +
+                            '<br/>';
+                    });
+
+                    $("input").val('');
+
+                    document.getElementById('_divEscolhaCelula').innerHTML = html;
+
+
+                    $('#_modalCelulas').modal({
+                        keyboard: false,
+                        backdrop: 'static'
+                    })
+
+                    $('#_modalCelulas').modal('show');
+                },
+                complete: function (data) {
+
+
+                },
+                error: function (data) {
+
+                    alert("error");
+                }
             });
-
-             
-           
-
-            $("input").val('');
-
-            document.getElementById('_divEscolhaCelula').innerHTML = html;
-
-
-            $('#_modalCelulas').modal({
-                keyboard: false,
-                backdrop: 'static'
-            })
-
-            $('#_modalCelulas').modal('show');
-
-            
 
         }
 
@@ -328,3 +319,4 @@ function Sair() {
         {
             $('#_modalDataMultiplicacao').modal('hide');
         }
+
