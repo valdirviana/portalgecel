@@ -174,7 +174,7 @@ function Sair() {
                     success: function (data) {
 
                         var retorno = $(data).find('int').text();
-                        alert(retorno);
+                       
 
                         if (retorno < 1) {
 
