@@ -134,6 +134,7 @@ function Sair() {
 
         function EnviarRelatorio() {
 
+            var idCelula = $('#_txtIdCelula').text();
             var membro = $('#_txtMembro').val();
             var visita = $('#_txtVisita').val();
             var crianca = $('#_txtCrianca').val();
@@ -144,16 +145,61 @@ function Sair() {
             var kgAmor = $('#_txtKgAmor').val();
             var dtCelula = $('#_txtDtCelula').val();
             var dtMult = $('#_txtDtMultiplicacao').val();
-            var Observacao = $('#_txtObservacao').val();
+            var observacao = $('#_txtObservacao').val();
 
             if (VerificaVazios())
             {
-                $('#_modalSucessoCadastro').modal({
-                    keyboard: false,
-                    backdrop: 'static'
-                })
+                var elem = dtCelula.split('/');
+                var dia = elem[0];
+                var mes = elem[1];
+                var ano = elem[2];
+                var novaDataCelula = mes + "/" + dia + "/" + ano;
 
-                $('#_modalSucessoCadastro').modal('show');
+                var novaDataMultiplicacao = '';
+                if (dtMult != '') {
+                    var elem2 = dtMult.split('/');
+                    var dia2 = elem2[0];
+                    var mes2 = elem2[1];
+                    var ano2 = elem2[2];
+                    novaDataMultiplicacao = mes2 + "/" + dia2 + "/" + ano2;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://service.portalgecel.com.br/Services/RelatorioSemanaService.asmx/EnviaRelatorio",
+                    data: "idCelula=" + idCelula + "&membro=" + membro + "&visita=" + visita + "&crianca=" + crianca +
+                        "&total=" + total + "&mda=" + mda + "&ge=" + ge + "&batismo=" + batismo +
+                        "&kgAmor=" + kgAmor + "&dataCelula=" + novaDataCelula + "&dataMultiplicacao=" + novaDataMultiplicacao + "&observacao=" + observacao,
+                    dataType: "xml",
+                    success: function (data) {
+
+                        var retorno = $(data).find('int').text();
+                        if (retorno < 1) {
+
+                            alert('Não foi possível incluir o registro');
+                        }
+
+                        $("input").val('');
+
+                        $('#_modalSucessoCadastro').modal({
+                            keyboard: false,
+                            backdrop: 'static'
+                        })
+
+                        $('#_modalSucessoCadastro').modal('show');
+                    },
+                    complete: function (data) {
+
+
+
+                    },
+                    error: function (data) {
+
+                        alert('Erro! Tente novamente.');
+
+                    }
+                });
+
             }
             else
             {
